@@ -15,31 +15,36 @@ friend class Process;
 public:
  void Routine() {}
 } Main;
+
 Coroutine::Coroutine(size_t s = DEFAULT_STACK_SIZE) {
  Caller = Callee = 0; Ready = 1; Terminated = 0;
  StackSize = s;
 }
 
-void Coroutine::Enter() {
- if (!Current)
- Error("InitSequencing has not been called");
- if (Ready) { // find free block
- for (MyTask = main_task.suc;
- MyTask != &main_task;
- MyTask = MyTask->suc)
- if (MyTask->size >= StackSize + MIN_STACK_SIZE)
- break;
- if (MyTask == &main_task)
- Error("No more space available\n");
- MyTask->MyCoroutine = this;
- if (!setjmp(tmp_jmpb))
- longjmp(MyTask->jmpb, 1);
- Ready = 0;
- }
- if (!setjmp(Current->MyTask->jmpb)) { // activate control block
- Current = this;
- longjmp(MyTask->jmpb, 1);
- }
+void Coroutine::Enter() 
+{
+	 if (!Current)
+	 	Error("InitSequencing has not been called");
+	 	
+	 if (Ready) 
+	 { // find free block
+		 for (MyTask = main_task.suc;MyTask != &main_task;MyTask = MyTask->suc)
+			if (MyTask->size >= StackSize + MIN_STACK_SIZE)
+		 		break;
+		 	if (MyTask == &main_task)
+		 		Error("No more space available\n");
+		 MyTask->MyCoroutine = this;
+		 
+		 if (!setjmp(tmp_jmpb))
+		 longjmp(MyTask->jmpb, 1);
+		 Ready = 0;
+	 }
+	 if (!setjmp(Current->MyTask->jmpb)) 
+	 { 
+	 	// activate control block
+	 	Current = this;
+	 	longjmp(MyTask->jmpb, 1);
+ 	}
 }
 void Coroutine::Eat() {
  static size_t d;
