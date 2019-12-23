@@ -1,13 +1,16 @@
+#include <string>
 #ifndef Sequencing
 #define Sequencing(S) {char Dummy; StackBottom = &Dummy; S;}
 #include <stddef.h>
 #include <setjmp.h>
 
+using namespace std;
+
 extern char *StackBottom;
 class Coroutine {
 friend void Resume(Coroutine *);
 friend void Call(Coroutine *);
-friend void Detach();
+friend void Detach(std::string who);
 
 
 
@@ -28,7 +31,7 @@ private:
 
 void Resume(Coroutine *);
 void Call(Coroutine *);
-void Detach();
+void Detach(std::string who);
 Coroutine *CurrentCoroutine();
 Coroutine *MainCoroutine();
 #define DEFAULT_STACK_SIZE 0

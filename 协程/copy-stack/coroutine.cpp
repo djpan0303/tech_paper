@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <string.h>
+#include <typeinfo>
 
 char *StackBottom;
 using namespace std;
@@ -42,6 +43,7 @@ Coroutine::~Coroutine() {
 
 inline void Coroutine::RestoreStack() 
 {
+	cout << typeid( *this ).name()<<"\t\t\tRestoreStack and longjmp\n";
 	char X;
 	if (&X >= Low && &X <= High) RestoreStack();
 	Current = this;
@@ -51,6 +53,7 @@ inline void Coroutine::RestoreStack()
 
 inline void Coroutine::StoreStack() 
 {
+	cout << typeid( *this ).name()<<"\t\t\tStoreStack\n";
 	 if (!Low) 
 	 {
 		 if (!StackBottom)
@@ -75,10 +78,13 @@ inline void Coroutine::StoreStack()
 
 inline void Coroutine::Enter() 
 {
+	cout << typeid( *this ).name()<<"\t\t\tEnter\n";
 	if (!Terminated(Current)) 
 	{
+		
 		Current->StoreStack(); //保存堆栈
 
+		cout << typeid( *this ).name()<<"\t\t\tsetjmp\n";
 		if (setjmp(Current->Environment)) //保存执行环境
 			return;
 	}
@@ -91,12 +97,13 @@ inline void Coroutine::Enter()
 		delete this->StackBuffer;
 		this->StackBuffer = 0;
 		
-		Detach();
+		Detach(typeid( *this ).name());
 	}
 	RestoreStack();
 }
 
 void Resume(Coroutine *Next) {
+cout << typeid( *Next ).name()<<"\t\t\tResume\n";
  if (!Next)
  	Error("Attempt to Resume a non-existing Coroutine");
  if (Next == Current)
@@ -114,10 +121,11 @@ void Resume(Coroutine *Next) {
 }
 
 void Call(Coroutine *Next) {
+cout << typeid( *Next ).name()<<"\t\t\tCall\n";
  if (!Next)
  	Error("Attempt to Call a non-existing Coroutine");
 
- cout << "\nbufsize:"<<Next->BufferSize<<endl;
+ //cout << "\nbufsize:"<<Next->BufferSize<<endl;
  if (Terminated(Next))
  	Error("Attempt to Call a terminated Coroutine");
  	
@@ -135,8 +143,9 @@ void Call(Coroutine *Next) {
  Next->Enter();
 }
 
-void Detach() 
+void Detach(std::string who) 
 {
+	cout <<who<<"\t\t\tDetach\n";
 	Next = Current->Caller;
 	
 	if (Next)

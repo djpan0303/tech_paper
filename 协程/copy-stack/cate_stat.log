@@ -1,0 +1,90 @@
+
+			"parent_type_id": 1,
+			"name": "柜式空调",
+--
+			"parent_type_id": 2,
+			"name": "窗帘",
+--
+			"parent_type_id": 3,
+			"name": "电视",
+--
+			"parent_type_id": 4,
+			"name": "电饭煲",
+--
+			"parent_type_id": 5,
+			"name": "灯",
+--
+			"parent_type_id": 6,
+			"name": "电子秤",
+--
+			"parent_type_id": 8,
+			"name": "有线开关",
+--
+			"parent_type_id": 8,
+			"name": "无线开关",
+--
+			"parent_type_id": 9,
+			"name": "空气质量检测仪",
+--
+			"parent_type_id": 10,
+			"name": "温湿度计",
+--
+			"parent_type_id": 11,
+			"name": "路由器",
+--
+			"parent_type_id": 12,
+			"name": "门窗传感器",
+--
+			"parent_type_id": 14,
+			"name": "可视对讲",
+--
+			"parent_type_id": 15,
+			"name": "音箱",
+--
+			"parent_type_id": 13,
+			"name": "人体传感器",
+--
+			"parent_type_id": 16,
+			"name": "晾衣机",
+--
+			"parent_type_id": 17,
+			"name": "洗衣机",
+--
+			"parent_type_id": 18,
+			"name": "空气净化器",
+--
+			"parent_type_id": 19,
+			"name": "净水器",
+--
+			"parent_type_id": 20,
+			"name": "可视门铃",
+
+--
+			"parent_type_id": 21,
+			"name": "信号放大器",
+
+--
+			"parent_type_id": 23,
+			"name": "门锁",
+--
+			"parent_type_id": 24,
+			"name": "电烤箱",
+--
+
+--
+			"parent_type_id": 25,
+			"name": "电热水器",
+
+
+
+
+--
+			"parent_type_id": 22,
+			"name": "智能路由器",
+--
+			"parent_type_id": 7,
+			"name": "摄像头",
+
+--
+			"parent_type_id": 80,
+			"name": "智能网关",
